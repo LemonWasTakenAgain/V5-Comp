@@ -135,6 +135,9 @@ float luanch_motor_vel;
 // When Autonomous
 
 int onauton_autonomous_0() {
+
+// Displaying Auto on brain screen
+
   Brain.Screen.clearScreen();
   Brain.Screen.setFont(prop30);
   Brain.Screen.setPenColor(purple);
@@ -143,11 +146,23 @@ int onauton_autonomous_0() {
   Brain.Screen.print("Auto");
   Brain.Screen.setPenColor(cyan);
   Brain.Screen.drawLine(4, 10, 10, 10);
+  
+  // Testing/innitializing all controls
+  
+  Launcher.spinFor(forward, 360, degrees, true);
+  Launcher.spinFor(reverse, 360, degrees, true);
+  Drivetrain.driveFor(forward, 100, mm);
+  Drivetrain.driveFor(reverse, 100, mm);
+  Drivetrain.turnFor(right, 360, degrees);
+  Drivetrain.turnFor(left, 360, degrees);
   return 0;
 }
 
 // When user controlled
 int whenStarted1() {
+
+// Displaying user control on brain screen
+
   Drivetrain.setDriveVelocity(100.0, percent);
   Drivetrain.setTurnVelocity(100.0, percent);
   Brain.Screen.clearScreen();
@@ -157,10 +172,13 @@ int whenStarted1() {
   Brain.Screen.setCursor(4, 10);
   Brain.Screen.print("TESTING");
   Brain.Screen.setPenColor(cyan);
-  Launcher.spinFor(forward, 90.0, degrees, true);
-  Launcher.spinFor(reverse, 90.0, degrees, true);
-  Drivetrain.turnFor(right, 90.0, degrees, true);
-  Drivetrain.turnFor(left, 90.0, degrees, true);
+  
+  // Testing/Innitializing all controls
+  
+  Launcher.spinFor(forward, 360, degrees, true);
+  Launcher.spinFor(reverse, 360, degrees, true);
+  Drivetrain.turnFor(right, 360, degrees, true);
+  Drivetrain.turnFor(left, 360, degrees, true);
   Brain.Screen.clearScreen();
   Brain.Screen.drawLine(4, 10, 10, 10);
   Brain.Screen.print("DRIVER CONTROL");
@@ -171,6 +189,9 @@ int whenStarted1() {
 
 // When brain pressed
 void onevent_Brain_screen_pressed_0() {
+
+// Displaying Emergency stop
+
   Brain.Screen.clearScreen();
   Brain.Screen.setFont(prop30);
   Brain.Screen.setPenColor(red);
@@ -179,6 +200,9 @@ void onevent_Brain_screen_pressed_0() {
   Brain.Screen.print("EMERGENCY STOP");
   Brain.Screen.setPenColor(cyan);
   Brain.Screen.drawLine(4, 10, 10, 10);
+  
+  // Stopping the bot
+  
   Drivetrain.stop();
   vexSystemExitRequest();
 }
