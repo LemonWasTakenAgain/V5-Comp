@@ -15,5 +15,10 @@
 - I can easily alter the controls for drivers most comfortable needs.
 - More motors can also be easily configured and added to the launcher for greater speeds.
 - Motors additionally added for speed with the robot however this is likely not needed as it is fast.
+
+
+
+Robot overall GOAL:
+https://www.youtube.com/watch?v=wIZgvVDZc2Y
  
  
