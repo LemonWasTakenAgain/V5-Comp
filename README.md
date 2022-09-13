@@ -1,4 +1,4 @@
-# Vex 5 Robotics Competition
+# VRC Spinup Vex 5 Robotics Competition
 
   This project is the code for the upcoming October Vex 5 Competition.
   
