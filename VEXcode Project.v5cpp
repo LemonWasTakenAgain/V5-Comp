@@ -1,0 +1,222 @@
+#pragma region VEXcode Generated Robot Configuration
+// Make sure all required headers are included.
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <math.h>
+#include <string.h>
+
+
+#include "vex.h"
+
+using namespace vex;
+
+// Brain should be defined by default
+brain Brain;
+
+
+// START V5 MACROS
+#define waitUntil(condition)                                                   \
+  do {                                                                         \
+    wait(5, msec);                                                             \
+  } while (!(condition))
+
+#define repeat(iterations)                                                     \
+  for (int iterator = 0; iterator < iterations; iterator++)
+// END V5 MACROS
+
+
+// Robot configuration code. | Controller Config
+controller Controller1 = controller(primary);
+
+// Launcher Motors
+
+motor LeftDriveSmart = motor(PORT12, ratio18_1, false);
+motor RightDriveSmart = motor(PORT11, ratio18_1, true);
+
+// Drivetrain Motors
+
+drivetrain Drivetrain = drivetrain(LeftDriveSmart, RightDriveSmart, 319.19, 295, 40, mm, 1);
+motor LauncherMotorA = motor(PORT10, ratio36_1, false);
+motor LauncherMotorB = motor(PORT9, ratio36_1, false);
+motor_group Launcher = motor_group(LauncherMotorA, LauncherMotorB);
+
+
+
+// Defining bool Imput Variables
+bool RemoteControlCodeEnabled = true;
+bool Controller1LeftShoulderControlMotorsStopped = true;
+bool DrivetrainLNeedsToBeStopped_Controller1 = true;
+bool DrivetrainRNeedsToBeStopped_Controller1 = true;
+
+// define a task that will handle monitoring inputs from Controller1
+int rc_auto_loop_function_Controller1() {
+  // process the controller input every 20 milliseconds
+  // update the motors based on the input values
+  while(true) {
+    if(RemoteControlCodeEnabled) {
+      
+      // calculate the drivetrain motor velocities from the controller joystick axies
+      // left = Axis3 + Axis1
+      // right = Axis3 - Axis1
+      int drivetrainLeftSideSpeed = Controller1.Axis3.position() + Controller1.Axis1.position();
+      int drivetrainRightSideSpeed = Controller1.Axis3.position() - Controller1.Axis1.position();
+      
+      // check if the value is inside of the deadband range
+      if (drivetrainLeftSideSpeed < 5 && drivetrainLeftSideSpeed > -5) {
+        // check if the left motor has already been stopped
+        if (DrivetrainLNeedsToBeStopped_Controller1) {
+          // stop the left drive motor
+          LeftDriveSmart.stop();
+          // tell the code that the left motor has been stopped
+          DrivetrainLNeedsToBeStopped_Controller1 = false;
+        }
+      } else {
+        // reset the toggle so that the deadband code knows to stop the left motor nexttime the input is in the deadband range
+        DrivetrainLNeedsToBeStopped_Controller1 = true;
+      }
+      // check if the value is inside of the deadband range
+      if (drivetrainRightSideSpeed < 5 && drivetrainRightSideSpeed > -5) {
+        // check if the right motor has already been stopped
+        if (DrivetrainRNeedsToBeStopped_Controller1) {
+          // stop the right drive motor
+          RightDriveSmart.stop();
+          // tell the code that the right motor has been stopped
+          DrivetrainRNeedsToBeStopped_Controller1 = false;
+        }
+      } else {
+        // reset the toggle so that the deadband code knows to stop the right motor next time the input is in the deadband range
+        DrivetrainRNeedsToBeStopped_Controller1 = true;
+      }
+      
+      // only tell the left drive motor to spin if the values are not in the deadband range
+      if (DrivetrainLNeedsToBeStopped_Controller1) {
+        LeftDriveSmart.setVelocity(drivetrainLeftSideSpeed, percent);
+        LeftDriveSmart.spin(forward);
+      }
+      // only tell the right drive motor to spin if the values are not in the deadband range
+      if (DrivetrainRNeedsToBeStopped_Controller1) {
+        RightDriveSmart.setVelocity(drivetrainRightSideSpeed, percent);
+        RightDriveSmart.spin(forward);
+      }
+      // check the ButtonL1/ButtonL2 status to control Launcher
+      if (Controller1.ButtonL1.pressing()) {
+        Launcher.spin(forward);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (Controller1.ButtonL2.pressing()) {
+        Launcher.spin(reverse);
+        Controller1LeftShoulderControlMotorsStopped = false;
+      } else if (!Controller1LeftShoulderControlMotorsStopped) {
+        Launcher.stop();
+        // set the toggle so that we don't constantly tell the motor to stop when the buttons are released
+        Controller1LeftShoulderControlMotorsStopped = true;
+      }
+    }
+    // wait before repeating the process
+    wait(20, msec);
+  }
+  return 0;
+}
+
+task rc_auto_loop_task_Controller1(rc_auto_loop_function_Controller1);
+#pragma endregion VEXcode Generated Robot Configuration
+// Include the V5 Library
+#include "vex.h"
+  
+// Allows for easier use of the VEX Library
+using namespace vex;
+
+competition Competition;
+
+int Brain_precision = 0, Console_precision = 0, Controller1_precision = 0;
+
+float luanch_motor_vel;
+
+// When Autonomous
+
+int onauton_autonomous_0() {
+  Brain.Screen.clearScreen();
+  Brain.Screen.setFont(prop30);
+  Brain.Screen.setPenColor(purple);
+  Brain.Screen.setPenWidth(20);
+  Brain.Screen.setCursor(4, 10);
+  Brain.Screen.print("Auto");
+  Brain.Screen.setPenColor(cyan);
+  Brain.Screen.drawLine(4, 10, 10, 10);
+  return 0;
+}
+
+// When user controlled
+int whenStarted1() {
+  Drivetrain.setDriveVelocity(100.0, percent);
+  Drivetrain.setTurnVelocity(100.0, percent);
+  Brain.Screen.clearScreen();
+  Brain.Screen.setFont(prop30);
+  Brain.Screen.setPenColor(blue);
+  Brain.Screen.setPenWidth(20);
+  Brain.Screen.setCursor(4, 10);
+  Brain.Screen.print("TESTING");
+  Brain.Screen.setPenColor(cyan);
+  Launcher.spinFor(forward, 90.0, degrees, true);
+  Launcher.spinFor(reverse, 90.0, degrees, true);
+  Drivetrain.turnFor(right, 90.0, degrees, true);
+  Drivetrain.turnFor(left, 90.0, degrees, true);
+  Brain.Screen.clearScreen();
+  Brain.Screen.drawLine(4, 10, 10, 10);
+  Brain.Screen.print("DRIVER CONTROL");
+  Launcher.setVelocity(100.0, percent);
+  Launcher.setMaxTorque(100.0, percent);
+  return 0;
+}
+
+// When brain pressed
+void onevent_Brain_screen_pressed_0() {
+  Brain.Screen.clearScreen();
+  Brain.Screen.setFont(prop30);
+  Brain.Screen.setPenColor(red);
+  Brain.Screen.setPenWidth(20);
+  Brain.Screen.setCursor(4, 10);
+  Brain.Screen.print("EMERGENCY STOP");
+  Brain.Screen.setPenColor(cyan);
+  Brain.Screen.drawLine(4, 10, 10, 10);
+  Drivetrain.stop();
+  vexSystemExitRequest();
+}
+
+void VEXcode_driver_task() {
+  // Start the driver control tasks
+
+  while(Competition.isDriverControl() && Competition.isEnabled()) {this_thread::sleep_for(10);}
+
+  return;
+}
+
+void VEXcode_auton_task() {
+  // Start the auton control tasks....
+  vex::task auto0(onauton_autonomous_0);
+  while(Competition.isAutonomous() && Competition.isEnabled()) {this_thread::sleep_for(10);}
+  auto0.stop();
+  return;
+}
+
+
+
+int main() {
+  vex::competition::bStopTasksBetweenModes = false;
+  Competition.autonomous(VEXcode_auton_task);
+  Competition.drivercontrol(VEXcode_driver_task);
+
+  // register event handlers
+  Brain.Screen.pressed(onevent_Brain_screen_pressed_0);
+
+  wait(15, msec);
+  // post event registration
+
+  // set default print color to black
+  printf("\033[30m");
+
+  // wait for rotation sensor to fully initialize
+  wait(30, msec);
+
+  whenStarted1();
+}
