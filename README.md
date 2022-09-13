@@ -12,8 +12,8 @@
  The current obstacles of the project are testing if we have enough torque/motor strength to launch the disks into the hoops.
  
  Upgrades:
- I can easily alter the controls for drivers most comfortable needs.
- More motors can also be easily configured and added to the launcher for greater speeds.
- Motors additionally added for speed with the robot however this is likely not needed as it is fast.
+- I can easily alter the controls for drivers most comfortable needs.
+- More motors can also be easily configured and added to the launcher for greater speeds.
+- Motors additionally added for speed with the robot however this is likely not needed as it is fast.
  
  
