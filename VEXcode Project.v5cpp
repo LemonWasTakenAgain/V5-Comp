@@ -175,10 +175,10 @@ int whenStarted1() {
   
   // Testing/Innitializing all controls
   
-  Launcher.spinFor(forward, 360, degrees, true);
-  Launcher.spinFor(reverse, 360, degrees, true);
-  Drivetrain.turnFor(right, 360, degrees, true);
-  Drivetrain.turnFor(left, 360, degrees, true);
+//  Launcher.spinFor(forward, 360, degrees, true);
+//  Launcher.spinFor(reverse, 360, degrees, true);
+//  Drivetrain.turnFor(right, 360, degrees, true);
+//  Drivetrain.turnFor(left, 360, degrees, true);
   Brain.Screen.clearScreen();
   Brain.Screen.drawLine(4, 10, 10, 10);
   Brain.Screen.print("DRIVER CONTROL");
