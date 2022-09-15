@@ -9,7 +9,7 @@
  - Left Lower Bumper = Launcher Scoop/Reverse
  - Left Upper Bumper = Luancher Spit/Drop
  
- The current obstacles of the project are testing if we have enough torque/motor strength to launch the disks into the hoops.
+ The current obstacles of the project are testing if we have enough motor speed to launch the disks into the hoops.
  
  Upgrades:
 - I can easily alter the controls for drivers most comfortable needs.
