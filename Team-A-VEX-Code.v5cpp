@@ -6,6 +6,8 @@ include <stdbool.h>
 include <math.h>
 include <string.h>
 
+// Base copy of working code atm
+
 
 include "vex.h"
 
