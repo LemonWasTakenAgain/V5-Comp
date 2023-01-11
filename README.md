@@ -6,8 +6,9 @@
  
  - Left Analog = Movement Forward/Reverse
  - Right Analog = Steering
- - Left Lower Bumper = Launcher Scoop/Reverse
- - Left Upper Bumper = Luancher Spit/Drop
+ - L1 Bumper Begin Endgame/Expansion
+ - L2 Bumper Reverse Endgame/Expansion
+ - R1 
  
  The current obstacles of the project are testing if we have enough motor speed to launch the disks into the hoops.
  
