@@ -81,6 +81,8 @@ def onevent_controller_1buttonL2_pressed_0():
         wait(5, MSEC)
     motor_20.stop()
 
+# Control for R1 to spin motor reverse on L1 on port 5 aka Wall Roller
+
 def onevent_controller_1buttonR2_pressed_0():
     global myVariable, vexcode_brain_precision, vexcode_console_precision, vexcode_controller_1_precision
     while controller_1.buttonR2.pressing():
@@ -98,6 +100,9 @@ def onauton_autonomous_0():
     global myVariable, vexcode_brain_precision, vexcode_console_precision, vexcode_controller_1_precision
     pass
 
+
+# Competition defining functions
+
 def vexcode_auton_function():
     auton_task_0 = Thread( onauton_autonomous_0 )
     while( competition.is_autonomous() and competition.is_enabled() ):
@@ -110,7 +115,7 @@ def vexcode_driver_function():
         wait( 10, MSEC )
 
 
-# Comp defining func
+
 
 competition = Competition( vexcode_driver_function, vexcode_auton_function )
 
@@ -122,3 +127,4 @@ wait(15, MSEC)
 
 ws2 = Thread( when_started2 )
 when_started1()
+
