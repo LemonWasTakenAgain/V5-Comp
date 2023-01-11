@@ -8,7 +8,8 @@
  - Right Analog = Steering
  - L1 Bumper Begin Endgame/Expansion
  - L2 Bumper Reverse Endgame/Expansion
- - R1 
+ - R1 Bumper Begin Wall roller movement
+ - R2 BUmper Reverse Wall roller movement
  
  The current obstacles of the project are testing if we have enough motor speed to launch the disks into the hoops.
  
